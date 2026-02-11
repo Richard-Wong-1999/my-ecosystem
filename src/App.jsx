@@ -224,7 +224,7 @@ rafR.current=requestAnimationFrame(loop)};
 rafR.current=requestAnimationFrame(loop);return()=>{if(rafR.current)cancelAnimationFrame(rafR.current)}},[phase]);
 
 if(phase==='home')return(
-<div className="w-full min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center relative overflow-hidden">
+<div className="w-full h-screen bg-gray-950 text-white flex flex-col items-center justify-center relative overflow-hidden">
 <HomeParticles />
 <div className="relative z-10 flex flex-col items-center gap-6 px-4">
 <motion.div initial={{opacity:0,y:-30}} animate={{opacity:1,y:0}} transition={{duration:0.8}} className="text-center">
@@ -246,7 +246,7 @@ if(phase==='home')return(
 </div>);
 
 if(phase==='rules')return(
-<div className="w-full min-h-screen bg-gray-950 text-white flex flex-col">
+<div className="w-full h-screen bg-gray-950 text-white flex flex-col">
 <div className="flex items-center gap-2 px-4 py-3 bg-gray-900/90 border-b border-gray-800">
 <button onClick={()=>setPhase('home')} className="flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors"><ArrowLeft size={16}/> 返回主頁</button>
 <h2 className="text-lg font-bold flex items-center gap-2"><BookOpen size={18}/> 遊戲規則</h2>
@@ -298,7 +298,7 @@ if(phase==='rules')return(
 </div>);
 
 if(phase==='setup')return(
-<div className="w-full min-h-screen bg-gray-950 text-white flex flex-col">
+<div className="w-full h-screen bg-gray-950 text-white flex flex-col">
 <div className="flex items-center gap-2 px-4 py-2 bg-gray-900/90 border-b border-gray-800">
 <button onClick={()=>setPhase('home')} className="flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors"><Home size={14}/> 主頁</button>
 <span className="text-gray-700">|</span>
@@ -374,7 +374,7 @@ className={`px-1.5 py-0.5 rounded border text-xs transition-colors ${sTP===t.id?
 </motion.div></div>)}</div></div>);
 
 if(phase==='result')return(
-<div className="w-full min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center gap-3 px-4">
+<div className="w-full h-screen bg-gray-950 text-white flex flex-col items-center justify-center gap-3 px-4">
 <motion.div initial={{scale:0}} animate={{scale:1}} transition={{type:'spring'}}>{result?.win?<Trophy size={64} className="text-amber-400"/>:<Skull size={64} className="text-gray-400"/>}</motion.div>
 <motion.h1 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} className="text-3xl font-black">{result?.win?'勝利！':'敗北'}</motion.h1>
 {result&&<motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.3}} className="text-center space-y-1 text-lg">
