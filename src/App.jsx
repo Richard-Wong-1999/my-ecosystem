@@ -74,7 +74,7 @@ const StatA=({stats,onChange})=>{const used=Object.values(stats).reduce((a,b)=>a
 const set=(k,v)=>{if(v<0||v>10)return;if(used-stats[k]+v>MXP)return;onChange({...stats,[k]:v})};
 return(<div className="space-y-1.5">
 <div className="flex justify-between text-sm"><span className="text-gray-500">技能點</span><span className={used>=MXP?'text-amber-400 font-bold':'text-gray-400'}>{used}/{MXP}</span></div>
-<div className="flex flex-wrap gap-1.5 mb-1.5">{PRE.map((p,i)=><button key={i} onClick={()=>onChange({...p.s})} className="px-2.5 py-1.5 text-xs sm:text-sm bg-gray-800 hover:bg-gray-700 rounded-full border border-gray-700 transition-colors">{p.n}</button>)}</div>
+<div className="flex flex-wrap gap-2 mb-2">{PRE.map((p,i)=><button key={i} onClick={()=>onChange({...p.s})} className="px-3.5 py-2 text-xs sm:text-sm bg-gray-800 hover:bg-gray-700 rounded-full border border-gray-700 transition-colors">{p.n}</button>)}</div>
 {SD.map(sd=>{const I=sd.icon;return(<div key={sd.key} className="flex items-center gap-1.5 sm:gap-2"><div className="flex items-center gap-1 sm:gap-1.5 w-14 sm:w-16 shrink-0"><I size={14} className={sd.color}/><span className="text-xs sm:text-sm text-gray-300">{sd.label}</span></div>
 <button onClick={()=>set(sd.key,stats[sd.key]-1)} className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-gray-800 hover:bg-gray-700 rounded-lg text-gray-400 active:bg-gray-600 shrink-0"><Minus size={14}/></button>
 <div className="flex-1 flex gap-0.5 sm:gap-1">{Array.from({length:10}).map((_,i)=>(<div key={i} onClick={()=>set(sd.key,i+1)} className={`h-5 flex-1 rounded-sm cursor-pointer transition-colors ${i<stats[sd.key]?'bg-blue-500':'bg-gray-700 opacity-30'}`}/>))}</div>
@@ -309,7 +309,7 @@ if(phase==='setup')return(
 </div>
 <div className="flex items-center justify-center gap-3 py-3 flex-wrap"><span className="text-base text-gray-400">對戰陣營數：</span><div className="flex gap-1.5">
 {Array.from({length:9},(_,i)=>i+2).map(n=><button key={n} onClick={()=>setFCnt(n)} className={`w-11 h-11 rounded-lg text-base font-bold transition-all ${fCnt===n?'ring-2 ring-white/50 scale-110':'opacity-50 hover:opacity-90'}`} style={{backgroundColor:FC[n-1]?.bg+'70',color:'#fff'}}>{n}</button>)}</div></div>
-<div className="flex justify-center gap-2 pb-2 flex-wrap px-4">{Array.from({length:fCnt},(_,i)=><span key={i} className="text-sm px-2.5 py-1 rounded-full" style={{border:`1px solid ${FC[i]?.bg}60`,color:FC[i]?.bg}}>●{i===0?'你':`電腦${i}`}</span>)}</div>
+<div className="flex justify-center gap-2 pb-2 flex-wrap px-4">{Array.from({length:fCnt},(_,i)=><span key={i} className="text-sm px-3 py-1.5 rounded-full" style={{border:`1px solid ${FC[i]?.bg}60`,color:FC[i]?.bg}}>●{i===0?'你':`電腦${i}`}</span>)}</div>
 <div className="flex-1 flex flex-col lg:flex-row gap-3 px-3 sm:px-4 pb-3 max-w-5xl mx-auto w-full overflow-y-auto min-h-0">
 <div className="lg:w-60 shrink-0 bg-gray-900 rounded-xl border border-gray-800 p-3">
 <h3 className="text-base font-bold text-blue-400 mb-2">我的軍團 ({roster.length}/8)</h3>
@@ -321,16 +321,16 @@ if(phase==='setup')return(
 {roster.length>0&&<button onClick={()=>setRoster([])} className="w-full mt-2.5 py-2.5 rounded-lg text-sm text-gray-500 hover:text-red-400 hover:bg-gray-800 border border-gray-800 transition-colors">清空全部</button>}
 </div>
 <div className="flex-1 bg-gray-900 rounded-xl border border-gray-800 p-4 space-y-3 overflow-y-auto">
-<div><div className="text-base font-semibold text-gray-400 mb-1.5">職業</div><div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5">{CLS.map(c=><button key={c.id} onClick={()=>setSelCls(c)}
-className={`p-3 rounded-lg border text-center transition-all ${selCls.id===c.id?'border-blue-500 bg-blue-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-800'}`}>
-<div className="text-2xl leading-none">{c.icon}</div><div className="text-sm text-gray-300 mt-1">{c.name}</div><div className="text-xs text-gray-500 mt-0.5 leading-tight">{c.d}</div></button>)}</div></div>
+<div><div className="text-base font-semibold text-gray-400 mb-1.5">職業</div><div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">{CLS.map(c=><button key={c.id} onClick={()=>setSelCls(c)}
+className={`p-3 sm:p-4 rounded-lg border text-center transition-all ${selCls.id===c.id?'border-blue-500 bg-blue-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-800'}`}>
+<div className="text-2xl leading-none">{c.icon}</div><div className="text-sm text-gray-300 mt-1.5">{c.name}</div><div className="text-xs text-gray-500 mt-1 leading-tight">{c.d}</div></button>)}</div></div>
 <div><div className="text-base font-semibold text-gray-400 mb-1.5">行動傾向</div>
-<div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">{BEH.map(b=><button key={b.id} onClick={()=>setSelBeh(b)}
-className={`p-2.5 sm:p-3 rounded-lg border text-left transition-all ${selBeh.id===b.id?'border-green-500 bg-green-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-800'}`}>
+<div className="grid grid-cols-2 sm:grid-cols-4 gap-2">{BEH.map(b=><button key={b.id} onClick={()=>setSelBeh(b)}
+className={`p-3 sm:p-3.5 rounded-lg border text-left transition-all ${selBeh.id===b.id?'border-green-500 bg-green-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-800'}`}>
 <div className="flex items-center gap-1.5"><span className="text-lg">{b.icon}</span><span className="text-sm font-bold text-gray-300">{b.name}</span></div>
 <div className="text-xs text-gray-500 mt-1 leading-tight">{b.d}</div></button>)}</div></div>
 <div><div className="text-base font-semibold text-gray-400 mb-1.5">目標優先</div><div className="flex gap-2 flex-wrap">{TPR.map(t=><button key={t.id} onClick={()=>setSelTP(t.id)}
-className={`px-4 py-2.5 rounded-lg border text-sm transition-all ${selTP===t.id?'border-amber-500 bg-amber-500/10 text-amber-300':'border-gray-700 bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{t.i} {t.n}</button>)}</div></div>
+className={`px-5 py-3 rounded-lg border text-sm transition-all ${selTP===t.id?'border-amber-500 bg-amber-500/10 text-amber-300':'border-gray-700 bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{t.i} {t.n}</button>)}</div></div>
 <StatA stats={dSt} onChange={setDSt}/>
 <button onClick={addR} disabled={roster.length>=8} className={`w-full py-3 rounded-lg font-bold text-base flex items-center justify-center gap-2 transition-all ${roster.length>=8?'bg-gray-700 text-gray-500 cursor-not-allowed':'bg-blue-600 hover:bg-blue-500 text-white'}`}>
 <Plus size={20}/> 加入 {selCls.name} / {selBeh.name}</button></div></div>
@@ -346,9 +346,9 @@ if(phase==='battle')return(
 <span className="text-gray-600">|</span><span className="text-gray-400">波{info.wave}</span>
 <span className="text-gray-400">⏱{Math.floor(info.f/3600)}:{String(Math.floor(info.f/60%60)).padStart(2,'0')}</span>
 <span className="text-gray-500">擊殺{info.kills}</span></div>
-<div className="flex items-center gap-1 sm:gap-1.5">{[1,2,4,8].map(sp=><button key={sp} onClick={()=>setSpeed(sp)} className={`px-2 py-1.5 sm:px-3 sm:py-2 rounded-lg transition-colors text-xs sm:text-sm font-medium ${speed===sp?'bg-blue-600 text-white':'bg-gray-700 hover:bg-gray-600 text-gray-300'}`}>{sp}x</button>)}
+<div className="flex items-center gap-1 sm:gap-1.5">{[1,2,4,8].map(sp=><button key={sp} onClick={()=>setSpeed(sp)} className={`px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-lg transition-colors text-xs sm:text-sm font-medium ${speed===sp?'bg-blue-600 text-white':'bg-gray-700 hover:bg-gray-600 text-gray-300'}`}>{sp}x</button>)}
 <div className="relative">
-<button onClick={()=>{setPaused(true);setPauseMenu(!pauseMenu)}} className="px-2 py-1.5 sm:px-3 sm:py-2 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center gap-1"><Menu size={16} className="sm:w-[18px] sm:h-[18px]"/></button>
+<button onClick={()=>{setPaused(true);setPauseMenu(!pauseMenu)}} className="px-2.5 py-1.5 sm:px-3.5 sm:py-2 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center gap-1"><Menu size={16} className="sm:w-[18px] sm:h-[18px]"/></button>
 </div></div></div>
 <div ref={boxR} className="flex-1 relative overflow-hidden"><canvas ref={cvR} className="block w-full h-full"/>
 <AnimatePresence>{pauseMenu&&(
@@ -365,12 +365,12 @@ if(phase==='battle')return(
 <div className="flex items-center gap-3 mb-3"><div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-xl">🧬</div>
 <div><h3 className="font-bold text-lg text-blue-400">{sMod.cls.icon} {sMod.cls.name} 準備分裂</h3><p className="text-sm text-gray-500">能量 {sMod.e}/{sMod.me} · 分裂後各得30%</p></div></div>
 <div className="space-y-3">
-<div><div className="text-sm sm:text-base font-semibold text-gray-400 mb-1">後代職業</div><div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">{CLS.map(c=><button key={c.id} onClick={()=>setSCls(c)}
-className={`p-2 sm:p-2.5 rounded-lg border text-center transition-all ${sCls.id===c.id?'border-blue-500 bg-blue-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-700'}`}><div className="text-xl">{c.icon}</div><div className="text-xs text-gray-500 mt-0.5">{c.name}</div></button>)}</div></div>
-<div><div className="text-sm sm:text-base font-semibold text-gray-400 mb-1">行動傾向</div><div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">{BEH.map(b=><button key={b.id} onClick={()=>setSBeh(b)}
-className={`p-2 sm:p-2.5 rounded-lg border text-center transition-all ${sBeh.id===b.id?'border-green-500 bg-green-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-700'}`}><span className="text-lg">{b.icon}</span><div className="text-xs text-gray-500 leading-tight mt-0.5">{b.name}</div></button>)}</div></div>
-<div><div className="text-sm sm:text-base font-semibold text-gray-400 mb-1">目標優先</div><div className="flex gap-1.5 sm:gap-2 flex-wrap">{TPR.map(t=><button key={t.id} onClick={()=>setSTP(t.id)}
-className={`px-3 py-2 rounded-lg border text-sm transition-colors ${sTP===t.id?'border-amber-500 bg-amber-500/10 text-amber-300':'border-gray-700 text-gray-400'}`}>{t.i} {t.n}</button>)}</div></div>
+<div><div className="text-sm sm:text-base font-semibold text-gray-400 mb-1">後代職業</div><div className="grid grid-cols-3 sm:grid-cols-6 gap-2">{CLS.map(c=><button key={c.id} onClick={()=>setSCls(c)}
+className={`p-2.5 sm:p-3 rounded-lg border text-center transition-all ${sCls.id===c.id?'border-blue-500 bg-blue-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-700'}`}><div className="text-xl">{c.icon}</div><div className="text-xs text-gray-500 mt-0.5">{c.name}</div></button>)}</div></div>
+<div><div className="text-sm sm:text-base font-semibold text-gray-400 mb-1">行動傾向</div><div className="grid grid-cols-2 sm:grid-cols-4 gap-2">{BEH.map(b=><button key={b.id} onClick={()=>setSBeh(b)}
+className={`p-2.5 sm:p-3 rounded-lg border text-center transition-all ${sBeh.id===b.id?'border-green-500 bg-green-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-700'}`}><span className="text-lg">{b.icon}</span><div className="text-xs text-gray-500 leading-tight mt-0.5">{b.name}</div></button>)}</div></div>
+<div><div className="text-sm sm:text-base font-semibold text-gray-400 mb-1">目標優先</div><div className="flex gap-2 flex-wrap">{TPR.map(t=><button key={t.id} onClick={()=>setSTP(t.id)}
+className={`px-4 py-2.5 rounded-lg border text-sm transition-colors ${sTP===t.id?'border-amber-500 bg-amber-500/10 text-amber-300':'border-gray-700 text-gray-400'}`}>{t.i} {t.n}</button>)}</div></div>
 <StatA stats={sSt} onChange={setSSt}/>
 <div className="flex gap-2 sm:gap-3 pt-2"><button onClick={confirmS} className="flex-1 py-2.5 sm:py-3 rounded-xl font-bold text-sm sm:text-base bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center gap-2"><Check size={18}/>確認分裂</button>
 <button onClick={skipS} className="flex-1 py-2.5 sm:py-3 rounded-xl font-bold text-sm sm:text-base bg-gray-700 hover:bg-gray-600 text-gray-300 flex items-center justify-center gap-2"><X size={18}/>跳過</button></div></div>
