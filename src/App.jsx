@@ -72,14 +72,14 @@ split(s2,c2,b2,t2){const ch=new Cr(this.pos.x+Math.random()*20-10,this.pos.y+Mat
 
 const StatA=({stats,onChange})=>{const used=Object.values(stats).reduce((a,b)=>a+b,0);
 const set=(k,v)=>{if(v<0||v>10)return;if(used-stats[k]+v>MXP)return;onChange({...stats,[k]:v})};
-return(<div className="space-y-1">
-<div className="flex justify-between text-xs"><span className="text-gray-500">技能點</span><span className={used>=MXP?'text-amber-400 font-bold':'text-gray-400'}>{used}/{MXP}</span></div>
-<div className="flex flex-wrap gap-1 mb-1">{PRE.map((p,i)=><button key={i} onClick={()=>onChange({...p.s})} className="px-1.5 py-0.5 text-xs bg-gray-800 hover:bg-gray-700 rounded-full border border-gray-700 transition-colors">{p.n}</button>)}</div>
-{SD.map(sd=>{const I=sd.icon;return(<div key={sd.key} className="flex items-center gap-1"><div className="flex items-center gap-1 w-14 shrink-0"><I size={11} className={sd.color}/><span className="text-xs text-gray-300">{sd.label}</span></div>
-<button onClick={()=>set(sd.key,stats[sd.key]-1)} className="w-5 h-5 flex items-center justify-center bg-gray-800 hover:bg-gray-700 rounded text-gray-400"><Minus size={10}/></button>
-<div className="flex-1 flex gap-0.5">{Array.from({length:10}).map((_,i)=>(<div key={i} onClick={()=>set(sd.key,i+1)} className={`h-3 flex-1 rounded-sm cursor-pointer transition-colors ${i<stats[sd.key]?'bg-blue-500':'bg-gray-700 opacity-30'}`}/>))}</div>
-<button onClick={()=>set(sd.key,stats[sd.key]+1)} className="w-5 h-5 flex items-center justify-center bg-gray-800 hover:bg-gray-700 rounded text-gray-400"><Plus size={10}/></button>
-<span className="w-4 text-center text-xs font-bold text-gray-300">{stats[sd.key]}</span></div>)})}</div>)};
+return(<div className="space-y-1.5">
+<div className="flex justify-between text-sm"><span className="text-gray-500">技能點</span><span className={used>=MXP?'text-amber-400 font-bold':'text-gray-400'}>{used}/{MXP}</span></div>
+<div className="flex flex-wrap gap-1.5 mb-1.5">{PRE.map((p,i)=><button key={i} onClick={()=>onChange({...p.s})} className="px-2.5 py-1.5 text-sm bg-gray-800 hover:bg-gray-700 rounded-full border border-gray-700 transition-colors">{p.n}</button>)}</div>
+{SD.map(sd=>{const I=sd.icon;return(<div key={sd.key} className="flex items-center gap-2"><div className="flex items-center gap-1.5 w-16 shrink-0"><I size={16} className={sd.color}/><span className="text-sm text-gray-300">{sd.label}</span></div>
+<button onClick={()=>set(sd.key,stats[sd.key]-1)} className="w-10 h-10 flex items-center justify-center bg-gray-800 hover:bg-gray-700 rounded-lg text-gray-400 active:bg-gray-600"><Minus size={16}/></button>
+<div className="flex-1 flex gap-1">{Array.from({length:10}).map((_,i)=>(<div key={i} onClick={()=>set(sd.key,i+1)} className={`h-5 flex-1 rounded-sm cursor-pointer transition-colors ${i<stats[sd.key]?'bg-blue-500':'bg-gray-700 opacity-30'}`}/>))}</div>
+<button onClick={()=>set(sd.key,stats[sd.key]+1)} className="w-10 h-10 flex items-center justify-center bg-gray-800 hover:bg-gray-700 rounded-lg text-gray-400 active:bg-gray-600"><Plus size={16}/></button>
+<span className="w-7 text-center text-sm font-bold text-gray-300">{stats[sd.key]}</span></div>)})}</div>)};
 
 const HomeParticles = () => {
   const cvRef = useRef(null);
@@ -213,9 +213,9 @@ if(c.glow>0){ctx.fillStyle=`rgba(74,222,128,${c.glow/10*.3})`;ctx.beginPath();ct
 if(c.ring>0){ctx.strokeStyle=`rgba(167,139,250,${c.ring/12*.6})`;ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,55*(1-c.ring/12*.3),0,Math.PI*2);ctx.stroke()}
 if(c.cls.id==='guardian'){ctx.strokeStyle=`rgba(250,204,21,${.08+Math.sin(sim.f*.05)*.04})`;ctx.lineWidth=1;ctx.beginPath();ctx.arc(0,0,55,0,Math.PI*2);ctx.stroke()}
 ctx.fillStyle=c.df>0?'#fff':`hsl(${hue},75%,50%)`;drawShape(ctx,c.cls.id,sz);ctx.restore();
-const bw=sz*2.2,bh2=1.8,barY=c.pos.y-c.sz-7;ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(c.pos.x-bw/2,barY,bw,bh2);
+const bw=sz*2.2,bh2=3.5,barY=c.pos.y-c.sz-8;ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(c.pos.x-bw/2,barY,bw,bh2);
 const er=Math.max(0,c.energy/c.mxE);ctx.fillStyle=er>.3?`hsl(${hue},75%,50%)`:'#ef4444';ctx.fillRect(c.pos.x-bw/2,barY,bw*er,bh2);
-if(sz>4){ctx.fillStyle='rgba(255,255,255,.45)';ctx.font='7px sans-serif';ctx.textAlign='center';ctx.fillText(c.cls.icon,c.pos.x,barY-2)}}
+if(sz>4){ctx.fillStyle='rgba(255,255,255,.45)';ctx.font='9px sans-serif';ctx.textAlign='center';ctx.fillText(c.cls.icon,c.pos.x,barY-3)}}
 if(sim.wAnn>0){const a=Math.min(1,sim.wAnn/90);ctx.globalAlpha=a;ctx.fillStyle='#ef4444';ctx.font='bold 18px sans-serif';ctx.textAlign='center';ctx.fillText(`第 ${sim.wave} 波`,w/2,h*.15);ctx.globalAlpha=1;sim.wAnn--}
 if(sim.eAnn&&sim.eAnn.f>0){const a=Math.min(1,sim.eAnn.f/60);ctx.globalAlpha=a;ctx.fillStyle=FC[sim.eAnn.t]?.bg||'#fff';ctx.font='bold 16px sans-serif';ctx.textAlign='center';ctx.fillText(`${FC[sim.eAnn.t]?.n}陣營已被消滅！`,w/2,h*.28);ctx.globalAlpha=1;sim.eAnn.f--}
 if(sim.f%12===0){const fcs=[];for(let t=0;t<fc;t++)fcs.push(sim.cr.filter(c=>c.team===t&&c.energy>0).length);
@@ -226,162 +226,168 @@ rafR.current=requestAnimationFrame(loop);return()=>{if(rafR.current)cancelAnimat
 if(phase==='home')return(
 <div className="w-full h-screen bg-gray-950 text-white flex flex-col items-center justify-center relative overflow-hidden">
 <HomeParticles />
-<div className="relative z-10 flex flex-col items-center gap-6 px-4">
+<div className="relative z-10 flex flex-col items-center gap-8 px-4">
 <Motion.div initial={{opacity:0,y:-30}} animate={{opacity:1,y:0}} transition={{duration:0.8}} className="text-center">
-<div className="text-6xl sm:text-7xl mb-3">🧬</div>
-<h1 className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">數位生態缸</h1>
-<p className="text-gray-400 mt-3 text-sm sm:text-base">多陣營 · 多職業 · 自訂行為 · 即時戰鬥模擬</p>
+<div className="text-7xl sm:text-8xl mb-4">🧬</div>
+<h1 className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">數位生態缸</h1>
+<p className="text-gray-400 mt-4 text-base sm:text-lg tracking-wide">多陣營 · 多職業 · 自訂行為 · 即時戰鬥模擬</p>
 </Motion.div>
-<Motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.4,duration:0.6}} className="flex flex-col sm:flex-row gap-3 w-full max-w-xs sm:max-w-md">
-<button onClick={()=>setPhase('setup')} className="flex-1 py-4 rounded-2xl font-black text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all hover:scale-105 flex items-center justify-center gap-2">
-<Play size={22}/> 開始遊戲</button>
-<button onClick={()=>setPhase('rules')} className="flex-1 py-4 rounded-2xl font-bold text-lg bg-gray-800/80 border border-gray-700 hover:border-gray-500 hover:bg-gray-700/80 transition-all hover:scale-105 flex items-center justify-center gap-2">
-<BookOpen size={20}/> 遊戲規則</button>
+<Motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.4,duration:0.6}} className="flex flex-col sm:flex-row gap-4 w-full max-w-xs sm:max-w-lg">
+<button onClick={()=>setPhase('setup')} className="flex-1 py-5 rounded-2xl font-black text-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all hover:scale-105 flex items-center justify-center gap-3">
+<Play size={24}/> 開始遊戲</button>
+<button onClick={()=>setPhase('rules')} className="flex-1 py-5 rounded-2xl font-bold text-xl bg-gray-800/80 border border-gray-700 hover:border-gray-500 hover:bg-gray-700/80 transition-all hover:scale-105 flex items-center justify-center gap-3">
+<BookOpen size={24}/> 遊戲規則</button>
 </Motion.div>
-<Motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.8}} className="flex gap-3 mt-2">
+<Motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.8}} className="flex gap-4 mt-2">
 {['⚔️','🏹','🛡️','💫','💚','🦅'].map((e,i)=>(
-<Motion.span key={i} animate={{y:[0,-6,0]}} transition={{repeat:Infinity,duration:2,delay:i*0.2}} className="text-2xl">{e}</Motion.span>))}
+<Motion.span key={i} animate={{y:[0,-8,0]}} transition={{repeat:Infinity,duration:2,delay:i*0.2}} className="text-3xl sm:text-4xl">{e}</Motion.span>))}
 </Motion.div>
 </div>
 </div>);
 
 if(phase==='rules')return(
-<div className="w-full h-screen bg-gray-950 text-white flex flex-col">
-<div className="flex items-center gap-2 px-4 py-3 bg-gray-900/90 border-b border-gray-800">
-<button onClick={()=>setPhase('home')} className="flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors"><ArrowLeft size={16}/> 返回主頁</button>
-<h2 className="text-lg font-bold flex items-center gap-2"><BookOpen size={18}/> 遊戲規則</h2>
+<div className="w-full h-screen bg-gray-950 text-white flex flex-col relative overflow-hidden">
+<HomeParticles />
+<div className="relative z-10 flex flex-col h-full">
+<div className="flex items-center gap-3 px-5 py-4 bg-gray-900/70 backdrop-blur-md border-b border-gray-700/50">
+<button onClick={()=>setPhase('home')} className="flex items-center gap-2 text-base text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-gray-800/50"><ArrowLeft size={20}/> 返回主頁</button>
+<h2 className="text-xl font-bold flex items-center gap-2"><BookOpen size={22}/> 遊戲規則</h2>
 </div>
-<div className="flex-1 overflow-y-auto px-4 py-4 max-w-2xl mx-auto w-full space-y-5">
-<section className="bg-gray-900/60 rounded-xl border border-gray-800 p-4">
-<h3 className="text-base font-bold text-blue-400 mb-2 flex items-center gap-2">🎯 遊戲目標</h3>
-<p className="text-sm text-gray-300 leading-relaxed">你控制<span className="text-blue-400 font-bold">藍色</span>陣營，目標是消滅所有其他陣營的生物。選擇 2～10 個陣營進行混戰，你的陣營需自行編制軍團，電腦陣營則自動生成。消滅所有敵方陣營即為勝利，己方全滅則為敗北。</p>
+<div className="flex-1 overflow-y-auto px-4 py-5 max-w-2xl mx-auto w-full space-y-5">
+<section className="bg-gray-900/70 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-5">
+<h3 className="text-lg font-bold text-blue-400 mb-3 flex items-center gap-2">🎯 遊戲目標</h3>
+<p className="text-base text-gray-300 leading-relaxed">你控制<span className="text-blue-400 font-bold">藍色</span>陣營，目標是消滅所有其他陣營的生物。選擇 2～10 個陣營進行混戰，你的陣營需自行編制軍團，電腦陣營則自動生成。消滅所有敵方陣營即為勝利，己方全滅則為敗北。</p>
 </section>
-<section className="bg-gray-900/60 rounded-xl border border-gray-800 p-4">
-<h3 className="text-base font-bold text-amber-400 mb-2 flex items-center gap-2">⚙️ 軍團編制</h3>
-<p className="text-sm text-gray-300 leading-relaxed mb-2">開戰前你可以編制最多 <span className="font-bold text-white">8 隻</span>生物。每隻生物需要設定：</p>
-<div className="space-y-2 text-sm text-gray-300">
-<div className="flex gap-2"><span className="text-lg">📌</span><div><span className="font-bold text-white">職業</span> — 6 種職業各有獨特外型與被動/主動能力。戰士（攻擊+30%）、獵手（遠程射擊）、守衛（護甲光環-30%傷害）、法師（範圍AOE）、治療（回復友方血量）、斥候（移速+30%，20%閃避）。</div></div>
-<div className="flex gap-2"><span className="text-lg">📌</span><div><span className="font-bold text-white">行動傾向</span> — 8 種 AI 行為：隨機遊蕩、主動進攻、優先覓食、靠近友方、陣形防守、迴避敵方、獵殺弱敵、保護友方。</div></div>
-<div className="flex gap-2"><span className="text-lg">📌</span><div><span className="font-bold text-white">目標優先</span> — 攻擊目標的選擇偏好：最近、最弱、最強。</div></div>
-<div className="flex gap-2"><span className="text-lg">📌</span><div><span className="font-bold text-white">技能配點</span> — 共 <span className="text-amber-400 font-bold">15 點</span>分配到 5 項屬性。可使用 12 種快速配點模板或手動調整。</div></div>
-</div>
-</section>
-<section className="bg-gray-900/60 rounded-xl border border-gray-800 p-4">
-<h3 className="text-base font-bold text-cyan-400 mb-2 flex items-center gap-2">📊 五大屬性</h3>
-<div className="space-y-1.5 text-sm text-gray-300">
-<div className="flex items-center gap-2"><Wind size={14} className="text-cyan-400 shrink-0"/><span><span className="font-bold text-white">速度</span> — 影響移動速度與加速度。高速可追擊或逃跑。</span></div>
-<div className="flex items-center gap-2"><Zap size={14} className="text-red-400 shrink-0"/><span><span className="font-bold text-white">攻擊</span> — 影響近戰與技能傷害。擊殺敵人可回復少量能量。</span></div>
-<div className="flex items-center gap-2"><Shield size={14} className="text-yellow-400 shrink-0"/><span><span className="font-bold text-white">護甲</span> — 減少受到的傷害，同時增大體型（碰撞判定）。</span></div>
-<div className="flex items-center gap-2"><Eye size={14} className="text-purple-400 shrink-0"/><span><span className="font-bold text-white">感知</span> — 擴大偵測範圍，影響搜尋敵人、食物與友方的能力。</span></div>
-<div className="flex items-center gap-2"><Heart size={14} className="text-green-400 shrink-0"/><span><span className="font-bold text-white">生命</span> — 增加最大能量值。能量歸零即死亡。</span></div>
+<section className="bg-gray-900/70 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-5">
+<h3 className="text-lg font-bold text-amber-400 mb-3 flex items-center gap-2">⚙️ 軍團編制</h3>
+<p className="text-base text-gray-300 leading-relaxed mb-3">開戰前你可以編制最多 <span className="font-bold text-white">8 隻</span>生物。每隻生物需要設定：</p>
+<div className="space-y-3 text-base text-gray-300">
+<div className="flex gap-3"><span className="text-xl">📌</span><div><span className="font-bold text-white">職業</span> — 6 種職業各有獨特外型與被動/主動能力。戰士（攻擊+30%）、獵手（遠程射擊）、守衛（護甲光環-30%傷害）、法師（範圍AOE）、治療（回復友方血量）、斥候（移速+30%，20%閃避）。</div></div>
+<div className="flex gap-3"><span className="text-xl">📌</span><div><span className="font-bold text-white">行動傾向</span> — 8 種 AI 行為：隨機遊蕩、主動進攻、優先覓食、靠近友方、陣形防守、迴避敵方、獵殺弱敵、保護友方。</div></div>
+<div className="flex gap-3"><span className="text-xl">📌</span><div><span className="font-bold text-white">目標優先</span> — 攻擊目標的選擇偏好：最近、最弱、最強。</div></div>
+<div className="flex gap-3"><span className="text-xl">📌</span><div><span className="font-bold text-white">技能配點</span> — 共 <span className="text-amber-400 font-bold">15 點</span>分配到 5 項屬性。可使用 12 種快速配點模板或手動調整。</div></div>
 </div>
 </section>
-<section className="bg-gray-900/60 rounded-xl border border-gray-800 p-4">
-<h3 className="text-base font-bold text-green-400 mb-2 flex items-center gap-2">🔄 戰場機制</h3>
-<div className="space-y-1.5 text-sm text-gray-300">
-<div className="flex gap-2"><span className="text-lg">🌊</span><div><span className="font-bold text-white">波次系統</span> — 隨時間推進，電腦陣營會定期獲得增援，且增援數量和強度會逐波提升。</div></div>
-<div className="flex gap-2"><span className="text-lg">🍀</span><div><span className="font-bold text-white">食物</span> — 場上持續刷新綠色食物，吃到可回復 14 點能量。移動和存活會持續消耗能量。</div></div>
-<div className="flex gap-2"><span className="text-lg">🧬</span><div><span className="font-bold text-white">分裂繁殖</span> — 當己方生物能量超過 92%、存活夠久、且分裂次數未達上限（3次）時可分裂。分裂後親代與子代各獲得 30% 能量。你可以為子代自訂全新的職業、行為與配點。</div></div>
-<div className="flex gap-2"><span className="text-lg">💀</span><div><span className="font-bold text-white">死亡</span> — 能量歸零即死亡，會在原地掉落食物。</div></div>
-<div className="flex gap-2"><span className="text-lg">🏰</span><div><span className="font-bold text-white">硬牆邊界</span> — 場地四周為硬牆，生物碰牆會反彈。</div></div>
+<section className="bg-gray-900/70 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-5">
+<h3 className="text-lg font-bold text-cyan-400 mb-3 flex items-center gap-2">📊 五大屬性</h3>
+<div className="space-y-2.5 text-base text-gray-300">
+<div className="flex items-center gap-3"><Wind size={20} className="text-cyan-400 shrink-0"/><span><span className="font-bold text-white">速度</span> — 影響移動速度與加速度。高速可追擊或逃跑。</span></div>
+<div className="flex items-center gap-3"><Zap size={20} className="text-red-400 shrink-0"/><span><span className="font-bold text-white">攻擊</span> — 影響近戰與技能傷害。擊殺敵人可回復少量能量。</span></div>
+<div className="flex items-center gap-3"><Shield size={20} className="text-yellow-400 shrink-0"/><span><span className="font-bold text-white">護甲</span> — 減少受到的傷害，同時增大體型（碰撞判定）。</span></div>
+<div className="flex items-center gap-3"><Eye size={20} className="text-purple-400 shrink-0"/><span><span className="font-bold text-white">感知</span> — 擴大偵測範圍，影響搜尋敵人、食物與友方的能力。</span></div>
+<div className="flex items-center gap-3"><Heart size={20} className="text-green-400 shrink-0"/><span><span className="font-bold text-white">生命</span> — 增加最大能量值。能量歸零即死亡。</span></div>
 </div>
 </section>
-<section className="bg-gray-900/60 rounded-xl border border-gray-800 p-4">
-<h3 className="text-base font-bold text-purple-400 mb-2 flex items-center gap-2">💡 策略提示</h3>
-<p className="text-sm text-gray-300 leading-relaxed">搭配不同職業形成互補陣容（例如守衛+治療+戰士）效果很好。前期可以用覓食型生物先存能量再分裂擴軍，中後期用攻擊型去壓制弱勢陣營。善用分裂系統來調整軍團組成是致勝關鍵。</p>
+<section className="bg-gray-900/70 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-5">
+<h3 className="text-lg font-bold text-green-400 mb-3 flex items-center gap-2">🔄 戰場機制</h3>
+<div className="space-y-2.5 text-base text-gray-300">
+<div className="flex gap-3"><span className="text-xl">🌊</span><div><span className="font-bold text-white">波次系統</span> — 隨時間推進，電腦陣營會定期獲得增援，且增援數量和強度會逐波提升。</div></div>
+<div className="flex gap-3"><span className="text-xl">🍀</span><div><span className="font-bold text-white">食物</span> — 場上持續刷新綠色食物，吃到可回復 14 點能量。移動和存活會持續消耗能量。</div></div>
+<div className="flex gap-3"><span className="text-xl">🧬</span><div><span className="font-bold text-white">分裂繁殖</span> — 當己方生物能量超過 92%、存活夠久、且分裂次數未達上限（3次）時可分裂。分裂後親代與子代各獲得 30% 能量。你可以為子代自訂全新的職業、行為與配點。</div></div>
+<div className="flex gap-3"><span className="text-xl">💀</span><div><span className="font-bold text-white">死亡</span> — 能量歸零即死亡，會在原地掉落食物。</div></div>
+<div className="flex gap-3"><span className="text-xl">🏰</span><div><span className="font-bold text-white">硬牆邊界</span> — 場地四周為硬牆，生物碰牆會反彈。</div></div>
+</div>
 </section>
-<div className="flex justify-center pb-6">
-<button onClick={()=>setPhase('setup')} className="px-8 py-3 rounded-xl font-bold text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 shadow-lg transition-all hover:scale-105 flex items-center gap-2">
-<Play size={20}/> 開始遊戲</button>
+<section className="bg-gray-900/70 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-5">
+<h3 className="text-lg font-bold text-purple-400 mb-3 flex items-center gap-2">💡 策略提示</h3>
+<p className="text-base text-gray-300 leading-relaxed">搭配不同職業形成互補陣容（例如守衛+治療+戰士）效果很好。前期可以用覓食型生物先存能量再分裂擴軍，中後期用攻擊型去壓制弱勢陣營。善用分裂系統來調整軍團組成是致勝關鍵。</p>
+</section>
+<div className="flex justify-center pb-8 pt-2">
+<button onClick={()=>setPhase('setup')} className="px-10 py-4 rounded-2xl font-bold text-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 shadow-lg shadow-blue-500/20 transition-all hover:scale-105 flex items-center gap-3">
+<Play size={24}/> 開始遊戲</button>
+</div>
 </div>
 </div>
 </div>);
 
 if(phase==='setup')return(
 <div className="w-full h-screen bg-gray-950 text-white flex flex-col">
-<div className="flex items-center gap-2 px-4 py-2 bg-gray-900/90 border-b border-gray-800">
-<button onClick={()=>setPhase('home')} className="flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors"><Home size={14}/> 主頁</button>
+<div className="flex items-center gap-3 px-5 py-3 bg-gray-900/90 border-b border-gray-800">
+<button onClick={()=>setPhase('home')} className="flex items-center gap-2 text-base text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-gray-800/50"><Home size={20}/> 主頁</button>
 <span className="text-gray-700">|</span>
-<h2 className="text-base font-bold">軍團編制</h2>
+<h2 className="text-xl font-bold">軍團編制</h2>
 </div>
-<div className="flex items-center justify-center gap-2 py-2 flex-wrap"><span className="text-xs text-gray-400">對戰陣營數：</span><div className="flex gap-1">
-{Array.from({length:9},(_,i)=>i+2).map(n=><button key={n} onClick={()=>setFCnt(n)} className={`w-7 h-7 rounded text-xs font-bold transition-all ${fCnt===n?'ring-2 ring-white/50 scale-110':'opacity-50 hover:opacity-90'}`} style={{backgroundColor:FC[n-1]?.bg+'70',color:'#fff'}}>{n}</button>)}</div></div>
-<div className="flex justify-center gap-1.5 pb-2 flex-wrap px-4">{Array.from({length:fCnt},(_,i)=><span key={i} className="text-xs px-1.5 py-0.5 rounded-full" style={{border:`1px solid ${FC[i]?.bg}60`,color:FC[i]?.bg}}>●{i===0?'你':`電腦${i}`}</span>)}</div>
-<div className="flex-1 flex flex-col lg:flex-row gap-2 px-2 pb-2 max-w-5xl mx-auto w-full overflow-y-auto">
-<div className="lg:w-52 shrink-0 bg-gray-900 rounded-xl border border-gray-800 p-2.5">
-<h3 className="text-xs font-bold text-blue-400 mb-1.5">我的軍團 ({roster.length}/8)</h3>
-{roster.length===0&&<p className="text-xs text-gray-600 italic py-3 text-center">尚未添加生物</p>}
-<div className="space-y-1">{roster.map((r,i)=><div key={i} className="flex items-center gap-1.5 p-1.5 rounded-lg bg-gray-800/60 border border-blue-500/20 group">
-<span className="text-base">{r.cls.icon}</span><div className="flex-1 min-w-0"><div className="text-xs text-gray-400 flex items-center gap-0.5 flex-wrap">{r.cls.name}<span>{BEH.find(b=>b.id===r.beh)?.icon}</span><span className="text-gray-600">{TPR.find(t=>t.id===r.tPri)?.i}</span></div>
-<div className="flex gap-1 text-xs">{SD.map(sd=><span key={sd.key} className={sd.color}>{r.st[sd.key]}</span>)}</div></div>
-<button onClick={()=>rmR(i)} className="w-5 h-5 flex items-center justify-center rounded bg-gray-700 hover:bg-red-600 text-gray-500 hover:text-white transition-colors"><X size={11}/></button></div>)}</div>
-{roster.length>0&&<button onClick={()=>setRoster([])} className="w-full mt-2 py-1 rounded text-xs text-gray-500 hover:text-red-400 hover:bg-gray-800 border border-gray-800 transition-colors">清空全部</button>}
+<div className="flex items-center justify-center gap-3 py-3 flex-wrap"><span className="text-base text-gray-400">對戰陣營數：</span><div className="flex gap-1.5">
+{Array.from({length:9},(_,i)=>i+2).map(n=><button key={n} onClick={()=>setFCnt(n)} className={`w-11 h-11 rounded-lg text-base font-bold transition-all ${fCnt===n?'ring-2 ring-white/50 scale-110':'opacity-50 hover:opacity-90'}`} style={{backgroundColor:FC[n-1]?.bg+'70',color:'#fff'}}>{n}</button>)}</div></div>
+<div className="flex justify-center gap-2 pb-2 flex-wrap px-4">{Array.from({length:fCnt},(_,i)=><span key={i} className="text-sm px-2.5 py-1 rounded-full" style={{border:`1px solid ${FC[i]?.bg}60`,color:FC[i]?.bg}}>●{i===0?'你':`電腦${i}`}</span>)}</div>
+<div className="flex-1 flex flex-col lg:flex-row gap-3 px-3 pb-3 max-w-5xl mx-auto w-full overflow-y-auto">
+<div className="lg:w-60 shrink-0 bg-gray-900 rounded-xl border border-gray-800 p-3">
+<h3 className="text-base font-bold text-blue-400 mb-2">我的軍團 ({roster.length}/8)</h3>
+{roster.length===0&&<p className="text-sm text-gray-600 italic py-4 text-center">尚未添加生物</p>}
+<div className="space-y-1.5">{roster.map((r,i)=><div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-800/60 border border-blue-500/20 group">
+<span className="text-xl">{r.cls.icon}</span><div className="flex-1 min-w-0"><div className="text-sm text-gray-400 flex items-center gap-1 flex-wrap">{r.cls.name}<span>{BEH.find(b=>b.id===r.beh)?.icon}</span><span className="text-gray-600">{TPR.find(t=>t.id===r.tPri)?.i}</span></div>
+<div className="flex gap-1.5 text-sm">{SD.map(sd=><span key={sd.key} className={sd.color}>{r.st[sd.key]}</span>)}</div></div>
+<button onClick={()=>rmR(i)} className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-700 hover:bg-red-600 text-gray-500 hover:text-white transition-colors"><X size={16}/></button></div>)}</div>
+{roster.length>0&&<button onClick={()=>setRoster([])} className="w-full mt-2.5 py-2.5 rounded-lg text-sm text-gray-500 hover:text-red-400 hover:bg-gray-800 border border-gray-800 transition-colors">清空全部</button>}
 </div>
-<div className="flex-1 bg-gray-900 rounded-xl border border-gray-800 p-3 space-y-2.5 overflow-y-auto">
-<div><div className="text-xs text-gray-500 mb-1">職業</div><div className="grid grid-cols-3 sm:grid-cols-6 gap-1">{CLS.map(c=><button key={c.id} onClick={()=>setSelCls(c)}
-className={`p-1.5 rounded-lg border text-center transition-all ${selCls.id===c.id?'border-blue-500 bg-blue-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-800'}`}>
-<div className="text-lg leading-none">{c.icon}</div><div className="text-xs text-gray-300 mt-0.5">{c.name}</div></button>)}</div></div>
-<div><div className="text-xs text-gray-500 mb-1">行動傾向</div>
-<div className="grid grid-cols-2 sm:grid-cols-4 gap-1">{BEH.map(b=><button key={b.id} onClick={()=>setSelBeh(b)}
-className={`p-1.5 rounded-lg border text-left transition-all ${selBeh.id===b.id?'border-green-500 bg-green-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-800'}`}>
-<div className="flex items-center gap-1"><span className="text-sm">{b.icon}</span><span className="text-xs font-bold text-gray-300">{b.name}</span></div>
-<div className="text-xs text-gray-500 mt-0.5 leading-tight">{b.d}</div></button>)}</div></div>
-<div><div className="text-xs text-gray-500 mb-1">目標優先</div><div className="flex gap-1">{TPR.map(t=><button key={t.id} onClick={()=>setSelTP(t.id)}
-className={`px-2 py-1 rounded border text-xs transition-all ${selTP===t.id?'border-amber-500 bg-amber-500/10 text-amber-300':'border-gray-700 bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{t.i}{t.n}</button>)}</div></div>
+<div className="flex-1 bg-gray-900 rounded-xl border border-gray-800 p-4 space-y-3 overflow-y-auto">
+<div><div className="text-base font-semibold text-gray-400 mb-1.5">職業</div><div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">{CLS.map(c=><button key={c.id} onClick={()=>setSelCls(c)}
+className={`p-3 rounded-lg border text-center transition-all ${selCls.id===c.id?'border-blue-500 bg-blue-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-800'}`}>
+<div className="text-2xl leading-none">{c.icon}</div><div className="text-sm text-gray-300 mt-1">{c.name}</div></button>)}</div></div>
+<div><div className="text-base font-semibold text-gray-400 mb-1.5">行動傾向</div>
+<div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">{BEH.map(b=><button key={b.id} onClick={()=>setSelBeh(b)}
+className={`p-3 rounded-lg border text-left transition-all ${selBeh.id===b.id?'border-green-500 bg-green-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-800'}`}>
+<div className="flex items-center gap-1.5"><span className="text-lg">{b.icon}</span><span className="text-sm font-bold text-gray-300">{b.name}</span></div>
+<div className="text-xs text-gray-500 mt-1 leading-tight">{b.d}</div></button>)}</div></div>
+<div><div className="text-base font-semibold text-gray-400 mb-1.5">目標優先</div><div className="flex gap-2">{TPR.map(t=><button key={t.id} onClick={()=>setSelTP(t.id)}
+className={`px-4 py-2.5 rounded-lg border text-sm transition-all ${selTP===t.id?'border-amber-500 bg-amber-500/10 text-amber-300':'border-gray-700 bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{t.i} {t.n}</button>)}</div></div>
 <StatA stats={dSt} onChange={setDSt}/>
-<button onClick={addR} disabled={roster.length>=8} className={`w-full py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-1 transition-all ${roster.length>=8?'bg-gray-700 text-gray-500 cursor-not-allowed':'bg-blue-600 hover:bg-blue-500 text-white'}`}>
-<Plus size={14}/> 加入 {selCls.name} / {selBeh.name}</button></div></div>
-<div className="flex justify-center pb-4 pt-1"><button onClick={startB} disabled={roster.length<1}
-className={`px-6 py-2.5 rounded-xl font-black text-lg flex items-center gap-2 transition-all ${roster.length>=1?'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 shadow-lg hover:scale-105':'bg-gray-700 text-gray-500 cursor-not-allowed'}`}>
-{fCnt} 陣營混戰 <ChevronRight size={20}/></button></div></div>);
+<button onClick={addR} disabled={roster.length>=8} className={`w-full py-3 rounded-lg font-bold text-base flex items-center justify-center gap-2 transition-all ${roster.length>=8?'bg-gray-700 text-gray-500 cursor-not-allowed':'bg-blue-600 hover:bg-blue-500 text-white'}`}>
+<Plus size={20}/> 加入 {selCls.name} / {selBeh.name}</button></div></div>
+<div className="flex justify-center pb-4 pt-2"><button onClick={startB} disabled={roster.length<1}
+className={`px-8 py-4 rounded-2xl font-black text-xl flex items-center gap-2 transition-all ${roster.length>=1?'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 shadow-lg shadow-blue-500/20 hover:scale-105':'bg-gray-700 text-gray-500 cursor-not-allowed'}`}>
+{fCnt} 陣營混戰 <ChevronRight size={24}/></button></div></div>);
 
 if(phase==='battle')return(
 <div className="flex flex-col w-full h-screen bg-gray-950 text-white">
-<div className="flex items-center justify-between px-2 py-1 bg-gray-900/95 border-b border-gray-800 shrink-0 flex-wrap gap-1 text-xs">
-<div className="flex items-center gap-1.5 flex-wrap">
+<div className="flex items-center justify-between px-3 py-2 bg-gray-900/95 border-b border-gray-800 shrink-0 flex-wrap gap-2 text-sm">
+<div className="flex items-center gap-2 flex-wrap">
 {info.fc.map((cnt,i)=><span key={i} className="font-bold flex items-center gap-0.5" style={{color:FC[i]?.bg,opacity:info.elim.includes(i)?.3:1}}>●{cnt}{info.elim.includes(i)&&<span className="text-gray-500">✗</span>}</span>)}
 <span className="text-gray-600">|</span><span className="text-gray-400">波{info.wave}</span>
 <span className="text-gray-400">⏱{Math.floor(info.f/3600)}:{String(Math.floor(info.f/60%60)).padStart(2,'0')}</span>
 <span className="text-gray-500 hidden sm:inline">擊殺{info.kills}</span></div>
-<div className="flex items-center gap-1">{[1,2,4,8].map(sp=><button key={sp} onClick={()=>setSpeed(sp)} className={`px-1.5 py-0.5 rounded transition-colors ${speed===sp?'bg-blue-600 text-white':'bg-gray-700 hover:bg-gray-600 text-gray-300'}`}>{sp}x</button>)}
+<div className="flex items-center gap-1.5">{[1,2,4,8].map(sp=><button key={sp} onClick={()=>setSpeed(sp)} className={`px-3 py-2 rounded-lg transition-colors text-sm font-medium ${speed===sp?'bg-blue-600 text-white':'bg-gray-700 hover:bg-gray-600 text-gray-300'}`}>{sp}x</button>)}
 <div className="relative">
-<button onClick={()=>{setPaused(true);setPauseMenu(!pauseMenu)}} className="px-1.5 py-0.5 bg-gray-700 hover:bg-gray-600 rounded flex items-center gap-0.5"><Menu size={11}/></button>
+<button onClick={()=>{setPaused(true);setPauseMenu(!pauseMenu)}} className="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center gap-1"><Menu size={18}/></button>
 </div></div></div>
 <div ref={boxR} className="flex-1 relative overflow-hidden"><canvas ref={cvR} className="block w-full h-full"/>
 <AnimatePresence>{pauseMenu&&(
 <Motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="absolute inset-0 flex items-center justify-center z-20" style={{backgroundColor:'rgba(0,0,0,.6)'}}>
-<Motion.div initial={{scale:.9,opacity:0}} animate={{scale:1,opacity:1}} exit={{scale:.9,opacity:0}} className="bg-gray-900 border border-gray-700 rounded-2xl p-5 w-full max-w-xs shadow-2xl flex flex-col items-center gap-3">
-<h3 className="text-lg font-black text-gray-200">暫停</h3>
-<div className="text-xs text-gray-500">波次 {info.wave} · 擊殺 {info.kills}</div>
-<button onClick={()=>{setPauseMenu(false);setPaused(false)}} className="w-full py-2.5 rounded-xl font-bold bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2"><Play size={16}/> 繼續遊戲</button>
-<button onClick={goHome} className="w-full py-2.5 rounded-xl font-bold bg-gray-800 border border-gray-700 hover:border-gray-500 hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"><Home size={16}/> 返回主頁</button>
+<Motion.div initial={{scale:.9,opacity:0}} animate={{scale:1,opacity:1}} exit={{scale:.9,opacity:0}} className="bg-gray-900 border border-gray-700 rounded-2xl p-8 w-full max-w-sm shadow-2xl flex flex-col items-center gap-5">
+<h3 className="text-2xl font-black text-gray-200">暫停</h3>
+<div className="text-base text-gray-500">波次 {info.wave} · 擊殺 {info.kills}</div>
+<button onClick={()=>{setPauseMenu(false);setPaused(false)}} className="w-full py-4 rounded-xl font-bold text-lg bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2"><Play size={22}/> 繼續遊戲</button>
+<button onClick={goHome} className="w-full py-4 rounded-xl font-bold text-lg bg-gray-800 border border-gray-700 hover:border-gray-500 hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"><Home size={22}/> 返回主頁</button>
 </Motion.div>
 </Motion.div>)}</AnimatePresence>
-{sMod&&(<div className="absolute inset-0 flex items-end sm:items-center justify-center z-10 p-2" style={{backgroundColor:'rgba(0,0,0,.4)'}}>
-<Motion.div initial={{y:40,opacity:0}} animate={{y:0,opacity:1}} className="bg-gray-900 border border-gray-700 rounded-xl p-3 w-full max-w-md shadow-2xl overflow-y-auto" style={{maxHeight:'90vh'}}>
-<div className="flex items-center gap-2 mb-2"><div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-sm">🧬</div>
-<div><h3 className="font-bold text-sm text-blue-400">{sMod.cls.icon}{sMod.cls.name} 準備分裂</h3><p className="text-xs text-gray-500">能量 {sMod.e}/{sMod.me} · 分裂後各得30%</p></div></div>
-<div className="space-y-2">
-<div><div className="text-xs text-gray-500 mb-0.5">後代職業</div><div className="grid grid-cols-6 gap-1">{CLS.map(c=><button key={c.id} onClick={()=>setSCls(c)}
-className={`p-1 rounded border text-center transition-all ${sCls.id===c.id?'border-blue-500 bg-blue-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-700'}`}><div className="text-sm">{c.icon}</div><div className="text-xs text-gray-500">{c.name}</div></button>)}</div></div>
-<div><div className="text-xs text-gray-500 mb-0.5">行動傾向</div><div className="grid grid-cols-4 gap-1">{BEH.map(b=><button key={b.id} onClick={()=>setSBeh(b)}
-className={`p-1 rounded border text-center transition-all ${sBeh.id===b.id?'border-green-500 bg-green-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-700'}`}><span className="text-sm">{b.icon}</span><div className="text-xs text-gray-500 leading-tight">{b.name}</div></button>)}</div></div>
-<div><div className="text-xs text-gray-500 mb-0.5">目標優先</div><div className="flex gap-1">{TPR.map(t=><button key={t.id} onClick={()=>setSTP(t.id)}
-className={`px-1.5 py-0.5 rounded border text-xs transition-colors ${sTP===t.id?'border-amber-500 bg-amber-500/10 text-amber-300':'border-gray-700 text-gray-400'}`}>{t.i}{t.n}</button>)}</div></div>
+{sMod&&(<div className="absolute inset-0 flex items-end sm:items-center justify-center z-10 p-3" style={{backgroundColor:'rgba(0,0,0,.5)'}}>
+<Motion.div initial={{y:40,opacity:0}} animate={{y:0,opacity:1}} className="bg-gray-900 border border-gray-700 rounded-2xl p-5 w-full max-w-md shadow-2xl overflow-y-auto" style={{maxHeight:'90vh'}}>
+<div className="flex items-center gap-3 mb-3"><div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-xl">🧬</div>
+<div><h3 className="font-bold text-lg text-blue-400">{sMod.cls.icon} {sMod.cls.name} 準備分裂</h3><p className="text-sm text-gray-500">能量 {sMod.e}/{sMod.me} · 分裂後各得30%</p></div></div>
+<div className="space-y-3">
+<div><div className="text-base font-semibold text-gray-400 mb-1">後代職業</div><div className="grid grid-cols-6 gap-1.5">{CLS.map(c=><button key={c.id} onClick={()=>setSCls(c)}
+className={`p-2.5 rounded-lg border text-center transition-all ${sCls.id===c.id?'border-blue-500 bg-blue-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-700'}`}><div className="text-xl">{c.icon}</div><div className="text-xs text-gray-500 mt-0.5">{c.name}</div></button>)}</div></div>
+<div><div className="text-base font-semibold text-gray-400 mb-1">行動傾向</div><div className="grid grid-cols-4 gap-1.5">{BEH.map(b=><button key={b.id} onClick={()=>setSBeh(b)}
+className={`p-2.5 rounded-lg border text-center transition-all ${sBeh.id===b.id?'border-green-500 bg-green-500/10':'border-gray-700 bg-gray-800/50 hover:bg-gray-700'}`}><span className="text-lg">{b.icon}</span><div className="text-xs text-gray-500 leading-tight mt-0.5">{b.name}</div></button>)}</div></div>
+<div><div className="text-base font-semibold text-gray-400 mb-1">目標優先</div><div className="flex gap-2">{TPR.map(t=><button key={t.id} onClick={()=>setSTP(t.id)}
+className={`px-3 py-2 rounded-lg border text-sm transition-colors ${sTP===t.id?'border-amber-500 bg-amber-500/10 text-amber-300':'border-gray-700 text-gray-400'}`}>{t.i} {t.n}</button>)}</div></div>
 <StatA stats={sSt} onChange={setSSt}/>
-<div className="flex gap-2 pt-1"><button onClick={confirmS} className="flex-1 py-1.5 rounded-lg font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center gap-1"><Check size={12}/>確認分裂</button>
-<button onClick={skipS} className="flex-1 py-1.5 rounded-lg font-bold text-sm bg-gray-700 hover:bg-gray-600 text-gray-300 flex items-center justify-center gap-1"><X size={12}/>跳過</button></div></div>
+<div className="flex gap-3 pt-2"><button onClick={confirmS} className="flex-1 py-3 rounded-xl font-bold text-base bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center gap-2"><Check size={18}/>確認分裂</button>
+<button onClick={skipS} className="flex-1 py-3 rounded-xl font-bold text-base bg-gray-700 hover:bg-gray-600 text-gray-300 flex items-center justify-center gap-2"><X size={18}/>跳過</button></div></div>
 </Motion.div></div>)}</div></div>);
 
 if(phase==='result')return(
-<div className="w-full h-screen bg-gray-950 text-white flex flex-col items-center justify-center gap-3 px-4">
-<Motion.div initial={{scale:0}} animate={{scale:1}} transition={{type:'spring'}}>{result?.win?<Trophy size={64} className="text-amber-400"/>:<Skull size={64} className="text-gray-400"/>}</Motion.div>
-<Motion.h1 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} className="text-3xl font-black">{result?.win?'勝利！':'敗北'}</Motion.h1>
-{result&&<Motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.3}} className="text-center space-y-1 text-lg">
+<div className="w-full h-screen bg-gray-950 text-white flex flex-col items-center justify-center gap-5 px-4 relative overflow-hidden">
+<HomeParticles />
+<div className="relative z-10 flex flex-col items-center gap-5">
+<Motion.div initial={{scale:0}} animate={{scale:1}} transition={{type:'spring'}}>{result?.win?<Trophy size={72} className="text-amber-400"/>:<Skull size={72} className="text-gray-400"/>}</Motion.div>
+<Motion.h1 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} className="text-4xl sm:text-5xl font-black">{result?.win?'勝利！':'敗北'}</Motion.h1>
+{result&&<Motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.3}} className="text-center space-y-2 text-xl sm:text-2xl">
 <p className="text-gray-400">時間 {Math.floor(result.time/3600)}:{String(Math.floor(result.time/60%60)).padStart(2,'0')}</p>
 <p className="text-gray-400">抵擋 {result.wave} 波</p><p className="text-gray-400">擊殺 {result.kills}</p></Motion.div>}
-<Motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.5}} className="flex flex-col sm:flex-row gap-3 mt-4">
-<button onClick={()=>setPhase('setup')} className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-bold text-lg transition-all hover:scale-105 flex items-center justify-center gap-2"><RotateCcw size={20}/> 再來一局</button>
-<button onClick={()=>setPhase('home')} className="px-8 py-3 bg-gray-800 border border-gray-700 rounded-xl font-bold text-lg transition-all hover:scale-105 hover:border-gray-500 flex items-center justify-center gap-2"><Home size={18}/> 返回主頁</button>
-</Motion.div></div>);
+<Motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.5}} className="flex flex-col sm:flex-row gap-4 mt-4">
+<button onClick={()=>setPhase('setup')} className="px-10 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl font-bold text-xl shadow-lg shadow-blue-500/20 transition-all hover:scale-105 flex items-center justify-center gap-3"><RotateCcw size={24}/> 再來一局</button>
+<button onClick={()=>setPhase('home')} className="px-10 py-4 bg-gray-800 border border-gray-700 rounded-2xl font-bold text-xl transition-all hover:scale-105 hover:border-gray-500 flex items-center justify-center gap-3"><Home size={24}/> 返回主頁</button>
+</Motion.div>
+</div></div>);
 return null}
