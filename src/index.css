@@ -14,7 +14,17 @@ html, body, #root {
 }
 
 button {
-  all: unset;
+  font: inherit;
+  color: inherit;
+  line-height: inherit;
   cursor: pointer;
-  box-sizing: border-box;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.9);
+  outline-offset: 2px;
 }

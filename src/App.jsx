@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Plus, Minus, Play, Pause, ChevronRight, Skull, Zap, Shield, Wind, Heart, Eye, X, Check, Trophy, Home, BookOpen, ArrowLeft, RotateCcw, Menu } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 
 class V{constructor(x=0,y=0){this.x=x;this.y=y}add(v){this.x+=v.x;this.y+=v.y;return this}sub(v){return new V(this.x-v.x,this.y-v.y)}mul(n){this.x*=n;this.y*=n;return this}mag(){return Math.sqrt(this.x*this.x+this.y*this.y)}norm(){const m=this.mag();if(m>0)this.mul(1/m);return this}lim(mx){if(this.mag()>mx)this.norm().mul(mx);return this}cl(){return new V(this.x,this.y)}static d(a,b){return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)}static r(){return new V(Math.random()*2-1,Math.random()*2-1)}}
 class Blt{constructor(x,y,a,t,d){this.p=new V(x,y);this.v=new V(Math.cos(a)*5,Math.sin(a)*5);this.team=t;this.dmg=d;this.life=45}update(){this.p.add(this.v);this.life--}dead(){return this.life<=0}}
@@ -227,21 +227,21 @@ if(phase==='home')return(
 <div className="w-full h-screen bg-gray-950 text-white flex flex-col items-center justify-center relative overflow-hidden">
 <HomeParticles />
 <div className="relative z-10 flex flex-col items-center gap-6 px-4">
-<motion.div initial={{opacity:0,y:-30}} animate={{opacity:1,y:0}} transition={{duration:0.8}} className="text-center">
+<Motion.div initial={{opacity:0,y:-30}} animate={{opacity:1,y:0}} transition={{duration:0.8}} className="text-center">
 <div className="text-6xl sm:text-7xl mb-3">🧬</div>
 <h1 className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">數位生態缸</h1>
 <p className="text-gray-400 mt-3 text-sm sm:text-base">多陣營 · 多職業 · 自訂行為 · 即時戰鬥模擬</p>
-</motion.div>
-<motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.4,duration:0.6}} className="flex flex-col sm:flex-row gap-3 w-full max-w-xs sm:max-w-md">
+</Motion.div>
+<Motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.4,duration:0.6}} className="flex flex-col sm:flex-row gap-3 w-full max-w-xs sm:max-w-md">
 <button onClick={()=>setPhase('setup')} className="flex-1 py-4 rounded-2xl font-black text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all hover:scale-105 flex items-center justify-center gap-2">
 <Play size={22}/> 開始遊戲</button>
 <button onClick={()=>setPhase('rules')} className="flex-1 py-4 rounded-2xl font-bold text-lg bg-gray-800/80 border border-gray-700 hover:border-gray-500 hover:bg-gray-700/80 transition-all hover:scale-105 flex items-center justify-center gap-2">
 <BookOpen size={20}/> 遊戲規則</button>
-</motion.div>
-<motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.8}} className="flex gap-3 mt-2">
+</Motion.div>
+<Motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.8}} className="flex gap-3 mt-2">
 {['⚔️','🏹','🛡️','💫','💚','🦅'].map((e,i)=>(
-<motion.span key={i} animate={{y:[0,-6,0]}} transition={{repeat:Infinity,duration:2,delay:i*0.2}} className="text-2xl">{e}</motion.span>))}
-</motion.div>
+<Motion.span key={i} animate={{y:[0,-6,0]}} transition={{repeat:Infinity,duration:2,delay:i*0.2}} className="text-2xl">{e}</Motion.span>))}
+</Motion.div>
 </div>
 </div>);
 
@@ -349,16 +349,16 @@ if(phase==='battle')return(
 </div></div></div>
 <div ref={boxR} className="flex-1 relative overflow-hidden"><canvas ref={cvR} className="block w-full h-full"/>
 <AnimatePresence>{pauseMenu&&(
-<motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="absolute inset-0 flex items-center justify-center z-20" style={{backgroundColor:'rgba(0,0,0,.6)'}}>
-<motion.div initial={{scale:.9,opacity:0}} animate={{scale:1,opacity:1}} exit={{scale:.9,opacity:0}} className="bg-gray-900 border border-gray-700 rounded-2xl p-5 w-full max-w-xs shadow-2xl flex flex-col items-center gap-3">
+<Motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="absolute inset-0 flex items-center justify-center z-20" style={{backgroundColor:'rgba(0,0,0,.6)'}}>
+<Motion.div initial={{scale:.9,opacity:0}} animate={{scale:1,opacity:1}} exit={{scale:.9,opacity:0}} className="bg-gray-900 border border-gray-700 rounded-2xl p-5 w-full max-w-xs shadow-2xl flex flex-col items-center gap-3">
 <h3 className="text-lg font-black text-gray-200">暫停</h3>
 <div className="text-xs text-gray-500">波次 {info.wave} · 擊殺 {info.kills}</div>
 <button onClick={()=>{setPauseMenu(false);setPaused(false)}} className="w-full py-2.5 rounded-xl font-bold bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2"><Play size={16}/> 繼續遊戲</button>
 <button onClick={goHome} className="w-full py-2.5 rounded-xl font-bold bg-gray-800 border border-gray-700 hover:border-gray-500 hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"><Home size={16}/> 返回主頁</button>
-</motion.div>
-</motion.div>)}</AnimatePresence>
+</Motion.div>
+</Motion.div>)}</AnimatePresence>
 {sMod&&(<div className="absolute inset-0 flex items-end sm:items-center justify-center z-10 p-2" style={{backgroundColor:'rgba(0,0,0,.4)'}}>
-<motion.div initial={{y:40,opacity:0}} animate={{y:0,opacity:1}} className="bg-gray-900 border border-gray-700 rounded-xl p-3 w-full max-w-md shadow-2xl overflow-y-auto" style={{maxHeight:'90vh'}}>
+<Motion.div initial={{y:40,opacity:0}} animate={{y:0,opacity:1}} className="bg-gray-900 border border-gray-700 rounded-xl p-3 w-full max-w-md shadow-2xl overflow-y-auto" style={{maxHeight:'90vh'}}>
 <div className="flex items-center gap-2 mb-2"><div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-sm">🧬</div>
 <div><h3 className="font-bold text-sm text-blue-400">{sMod.cls.icon}{sMod.cls.name} 準備分裂</h3><p className="text-xs text-gray-500">能量 {sMod.e}/{sMod.me} · 分裂後各得30%</p></div></div>
 <div className="space-y-2">
@@ -371,17 +371,17 @@ className={`px-1.5 py-0.5 rounded border text-xs transition-colors ${sTP===t.id?
 <StatA stats={sSt} onChange={setSSt}/>
 <div className="flex gap-2 pt-1"><button onClick={confirmS} className="flex-1 py-1.5 rounded-lg font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center gap-1"><Check size={12}/>確認分裂</button>
 <button onClick={skipS} className="flex-1 py-1.5 rounded-lg font-bold text-sm bg-gray-700 hover:bg-gray-600 text-gray-300 flex items-center justify-center gap-1"><X size={12}/>跳過</button></div></div>
-</motion.div></div>)}</div></div>);
+</Motion.div></div>)}</div></div>);
 
 if(phase==='result')return(
 <div className="w-full h-screen bg-gray-950 text-white flex flex-col items-center justify-center gap-3 px-4">
-<motion.div initial={{scale:0}} animate={{scale:1}} transition={{type:'spring'}}>{result?.win?<Trophy size={64} className="text-amber-400"/>:<Skull size={64} className="text-gray-400"/>}</motion.div>
-<motion.h1 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} className="text-3xl font-black">{result?.win?'勝利！':'敗北'}</motion.h1>
-{result&&<motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.3}} className="text-center space-y-1 text-lg">
+<Motion.div initial={{scale:0}} animate={{scale:1}} transition={{type:'spring'}}>{result?.win?<Trophy size={64} className="text-amber-400"/>:<Skull size={64} className="text-gray-400"/>}</Motion.div>
+<Motion.h1 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} className="text-3xl font-black">{result?.win?'勝利！':'敗北'}</Motion.h1>
+{result&&<Motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.3}} className="text-center space-y-1 text-lg">
 <p className="text-gray-400">時間 {Math.floor(result.time/3600)}:{String(Math.floor(result.time/60%60)).padStart(2,'0')}</p>
-<p className="text-gray-400">抵擋 {result.wave} 波</p><p className="text-gray-400">擊殺 {result.kills}</p></motion.div>}
-<motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.5}} className="flex flex-col sm:flex-row gap-3 mt-4">
+<p className="text-gray-400">抵擋 {result.wave} 波</p><p className="text-gray-400">擊殺 {result.kills}</p></Motion.div>}
+<Motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.5}} className="flex flex-col sm:flex-row gap-3 mt-4">
 <button onClick={()=>setPhase('setup')} className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-bold text-lg transition-all hover:scale-105 flex items-center justify-center gap-2"><RotateCcw size={20}/> 再來一局</button>
 <button onClick={()=>setPhase('home')} className="px-8 py-3 bg-gray-800 border border-gray-700 rounded-xl font-bold text-lg transition-all hover:scale-105 hover:border-gray-500 flex items-center justify-center gap-2"><Home size={18}/> 返回主頁</button>
-</motion.div></div>);
+</Motion.div></div>);
 return null}
