@@ -9,6 +9,36 @@
     <link rel="stylesheet" crossorigin href="/my-ecosystem/assets/index-CDTmpMD_.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="loading-diag" style="background:#0a0a12;color:#aaa;font-family:monospace;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center">
+        <div style="font-size:48px;margin-bottom:16px">🧬</div>
+        <div style="color:#fff;font-size:18px;margin-bottom:12px">載入中...</div>
+        <div id="diag-info" style="font-size:12px;color:#666;max-width:400px"></div>
+      </div>
+    </div>
+    <script>
+      // Diagnostics: if app doesn't load within 5s, show debug info
+      setTimeout(function() {
+        var d = document.getElementById('diag-info');
+        if (d) {
+          var scripts = document.querySelectorAll('script[src]');
+          var info = ['[Diagnostic] App failed to load after 5s'];
+          info.push('URL: ' + location.href);
+          info.push('Base: ' + document.baseURI);
+          scripts.forEach(function(s) { info.push('Script: ' + s.src); });
+          var links = document.querySelectorAll('link[rel=stylesheet]');
+          links.forEach(function(l) { info.push('CSS: ' + l.href); });
+          d.style.color = '#f87171';
+          d.innerHTML = info.join('<br>');
+        }
+      }, 5000);
+      window.addEventListener('error', function(e) {
+        var d = document.getElementById('diag-info');
+        if (d) {
+          d.style.color = '#f87171';
+          d.innerHTML += '<br>[Error] ' + (e.message || '') + ' ' + (e.filename || '');
+        }
+      });
+    </script>
   </body>
 </html>
